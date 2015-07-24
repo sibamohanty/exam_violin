@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+
+#virtualenv dir
+env/
+
+#IDE / Projects
+.ropeproject
+
+# Packages
+*.egg
+*.egg-info
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+
+#Docs
+doc/_build/
+
+.DS_Store
+
+# swp file
+*.swp

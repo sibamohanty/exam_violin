@@ -1,0 +1,5 @@
+﻿select question, string_agg(answer,'|'),string_agg(answer_key, '|') from questions left join answers
+ on (answers.question_id=questions.id) left join correct_answer
+ on (questions.id= correct_answer.question_id)
+
+ group by questions.id  limit 10; 

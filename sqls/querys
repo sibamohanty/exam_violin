@@ -1,0 +1,34 @@
+
+select question, string_agg(answer,'|') as choice,string_agg(answer_key, '|') as answer_key from questions left join answers
+ on (answers.question_id=questions.id) left join correct_answer
+ on (questions.id= correct_answer.question_id)
+
+ group by questions.id  limit 10;
+
+
+
+ - Create a function that always returns the first non-NULL item
+CREATE OR REPLACE FUNCTION public.first_agg ( anyelement, anyelement )
+RETURNS anyelement LANGUAGE SQL IMMUTABLE STRICT AS $$
+        SELECT $1;
+$$;
+
+-- And then wrap an aggregate around it
+CREATE AGGREGATE public.FIRST (
+        sfunc    = public.first_agg,
+        basetype = anyelement,
+        stype    = anyelement
+);
+
+-- Create a function that always returns the last non-NULL item
+CREATE OR REPLACE FUNCTION public.last_agg ( anyelement, anyelement )
+RETURNS anyelement LANGUAGE SQL IMMUTABLE STRICT AS $$
+        SELECT $2;
+$$;
+
+-- And then wrap an aggregate around it
+CREATE AGGREGATE public.LAST (
+        sfunc    = public.last_agg,
+        basetype = anyelement,
+        stype    = anyelement
+);
